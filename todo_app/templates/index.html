@@ -9,8 +9,21 @@
 </head>
 
 <body>
-    <h1>Ginのチュートリアル</h1>
+    <h1>Todo</h1>
     <div align="center">
-        <p>現在の時刻は{{.hour}}:{{.minute}}です</p>
+        <form method="POST" action="/new">
+            <p>Memo<input type="text" name="memo" size="30" placeholder="please input">
+            <input type="submit" value="register"></p>
+        </form>
+    </div>
+
+    <div class="container">
+        <ul>
+            {{range .todo}}
+            <li>{{.Memo}}</li>
+            {{end}}           
+        </ul>
     </div>
 </body>
+
+</html>
