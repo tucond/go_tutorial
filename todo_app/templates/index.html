@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Gin / 動的なページ</title>
+    <title>Todo</title>
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 
@@ -20,7 +20,12 @@
     <div class="container">
         <ul>
             {{range .todo}}
-            <li>{{.Memo}}</li>
+            <li>{{.Memo}}
+                <label>
+                    <a onclick="var ok=confirm('Delete?');
+                    if(ok)location.href='delete/{{.ID}}';return false;"><span class="delete">[x]</span></a>
+                </label>
+            </li>
             {{end}}           
         </ul>
     </div>
