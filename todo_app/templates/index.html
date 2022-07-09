@@ -19,11 +19,14 @@
 
     <div class="container">
         <ul>
-            {{range .todo}}
+            {{range .todos}}
             <li>{{.Memo}}
                 <label>
-                    <a onclick="var ok=confirm('Delete?');
-                    if(ok)location.href='delete/{{.ID}}';return false;"><span class="delete">[x]</span></a>
+                    <a href="/edit/{{.ID}}">[edit]</a>
+                </label>
+                <label>
+                    <a onclick="var ok=confirm('Delete?{{.CreatedAt}}');
+                    if(ok)location.href='delete/{{.ID}}';return false;"><span class="dddd">[x]</span></a>
                 </label>
             </li>
             {{end}}           
