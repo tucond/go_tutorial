@@ -1,4 +1,4 @@
-import { createRequestClient } from "~/store/request-client"
+import { createRequestClient } from '~/store/request-client'
 
 export const state = () => ({
     items:[],
@@ -9,7 +9,7 @@ export const actions = {
     async fetchPopularVideos({commit},payload){
         const client = createRequestClient(this.$axios)
         const res = await client.get(payload.uri, payload.params)
-        commit('mutatePopularVIdeos',res)
+        commit('mutatePopularVideos',res)
     },
 }
 
