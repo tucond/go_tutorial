@@ -2,6 +2,7 @@ import { createRequestClient } from '~/store/request-client'
 
 export const state = () => ({
     items:[],
+    relatedItems:[],
     item:{},
     meta:{},
 })
@@ -20,7 +21,13 @@ export const actions = {
             ...res.video_list,
         }
         commit('mutateVideo',params)
-    }
+    },
+
+    async fetchRelatedVideos({commit},payload){
+        const client = createRequestClient(this.$asios)
+        const res = await client.get(payload.uri)
+        commit ('mutateRelatedVideos',res)
+    },
 }
 
 export const mutations = {
@@ -33,6 +40,10 @@ export const mutations = {
         const params = (payload.items && payload.items.length > 0) ? payload.items[0] : {}
         state.item = params
     },
+    
+    mutateRelatedVideos(state,payload){
+        state.relatedItems = payload.items || []
+    },
 }
 
 export const getters={
@@ -44,5 +55,8 @@ export const getters={
     },
     getVideo(state){
         return state.item
+    },
+    getRelatedVideos(state){
+        return state.relatedItems
     },
 }
