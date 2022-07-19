@@ -24,7 +24,7 @@ export const actions = {
     },
 
     async fetchRelatedVideos({commit},payload){
-        const client = createRequestClient(this.$asios)
+        const client = createRequestClient(this.$axios)
         const res = await client.get(payload.uri)
         commit ('mutateRelatedVideos',res)
     },
@@ -40,7 +40,7 @@ export const mutations = {
         const params = (payload.items && payload.items.length > 0) ? payload.items[0] : {}
         state.item = params
     },
-    
+
     mutateRelatedVideos(state,payload){
         state.relatedItems = payload.items || []
     },

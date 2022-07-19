@@ -79,7 +79,7 @@ export default{
         {
             uri:ROUTES.GET.VIDEO.replace(':id',route.params.id),
         }),
-        await dispatch('fetchRelatedVideos',
+        await store.dispatch('fetchRelatedVideos',
         {
             uri:ROUTES.GET.RELATED.replace(':id',route.params.id),
         })
