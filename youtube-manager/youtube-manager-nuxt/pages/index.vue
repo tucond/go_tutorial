@@ -26,10 +26,12 @@
 
 <script>
 import ROUTES from '~/routes/api';
-import AppVideo from "~/components/AppVideo";
+import AppVideo from '~/components/AppVideo';
 
 export default {
-  components:{AppVideo},
+  components:{
+      AppVideo
+  },
   computed:{
     items(){
       return this.$store.getters.getPopularVideos
