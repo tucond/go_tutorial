@@ -27,6 +27,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/vue-youtube',
+    '~/plugins/cookies-to-state',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,6 +45,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
