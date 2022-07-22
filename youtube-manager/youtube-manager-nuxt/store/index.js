@@ -1,6 +1,5 @@
 import { createRequestClient } from '~/store/request-client';
 import firebase from '~/plugins/firebase';
-//import { LoaderOptionsPlugin } from 'webpack';
 
 export const state = () => ({
     items:[],
@@ -54,6 +53,13 @@ export const actions = {
         const token = await res.user.getIdToken()
         this.$cookies.set('jwt_token',token)
         commit('mutateToken',token)
+        this.app.router.push('/')
+    },
+
+    async logout({commit}){
+        await firebase.auth().signOut()
+        commit('mtateToken', null)
+        this.$cookies.remove('jwt_token')
         this.app.router.push('/')
     },
 
