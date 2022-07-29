@@ -25,7 +25,7 @@ func main() {
 	e.Use(middleware.CORS())
 	e.Use(middlewares.YouTubeService())
 	e.Use(middlewares.DatabaseService())
-	e,Use(middlewares.Firebase())
+	e.Use(middlewares.Firebase())
 
 	routes.Init(e)
 	e.Logger.Fatal(e.Start(":8080"))

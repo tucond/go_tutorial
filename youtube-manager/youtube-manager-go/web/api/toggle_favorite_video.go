@@ -1,15 +1,17 @@
 package api
 
 import (
+	"errors"
 	"firebase.google.com/go/auth"
 	"github.com/labstack/echo"
 	"github.com/valyala/fasthttp"
+	"gorm.io/gorm"
 	"youtube-manager-go/middlewares"
 	"youtube-manager-go/models"
 )
 
 type ToggleFavoriteVideoResponse struct {
-	videoId   string `json:"video_id"`
+	VideoId   string `json:"video_id"`
 	IsFavorte bool   `json:"is_favorite"`
 }
 
@@ -20,8 +22,9 @@ func ToggleFavoriteVideo() echo.HandlerFunc {
 		token := c.Get("auth").(*auth.Token)
 		user := models.User{}
 
-		if dbs.DB.Table("users").
-			Where(models.User{UID: token.UID}).First(&user).RecordNotFound() {
+		db := dbs.DB.Table("users").
+			Where(models.User{UID: token.UID}).First(&user)
+		if errors.Is(db.Error, gorm.ErrRecordNotFound) {
 
 			user = models.User{UID: token.UID}
 			dbs.DB.Create(&user)
@@ -30,9 +33,9 @@ func ToggleFavoriteVideo() echo.HandlerFunc {
 		favorite := models.Favorite{}
 		isFavorte := false
 
-		if dbs.DB.Table("favorites").
-			Where(models.Favorite{UserId: user.ID, VideoId: videoId}).First(&favorite).RecordNotFound() {
-
+		db = dbs.DB.Table("favorites").
+			Where(models.Favorite{UserId: user.ID, VideoId: videoId}).First(&favorite)
+		if errors.Is(db.Error, gorm.ErrRecordNotFound) {
 			favorite = models.Favorite{UserId: user.ID, VideoId: videoId}
 			dbs.DB.Create(&favorite)
 			isFavorte = true
