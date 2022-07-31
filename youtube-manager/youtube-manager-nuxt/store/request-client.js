@@ -8,6 +8,10 @@ export class RequestClient{
         const query = queryString.length > 0 ? `${uri}?${queryString}` : uri
         return await this.axios.$get(query)//axios利用https://public-constructor.com/nuxtjs-with-axios/
     }
+
+    async post(uri){
+        return await this.axios.$post(uri)
+    }
 }
 
 export function createRequestClient(axios){
