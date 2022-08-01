@@ -7,6 +7,7 @@ export const state = () => ({
     item:{},
     meta:{},
     searchItems:[],
+    favoriteItems:[],
     searchMeta:{},
     token:'',
 })
@@ -73,6 +74,12 @@ export const actions = {
         const res = await client.post(payload.uri)
         commit('mutateToggleFavorite',res.is_favorite)
     },
+
+    async fetchFavoriteVideos({commit}, payload){
+        const client = createRequestClient(this.$axios)
+        const res = await client.get(payload.uri)
+        commit('mutateFavoriteVideos',res)
+    }
 }
 
 export const mutations = {
@@ -103,6 +110,11 @@ export const mutations = {
     mutateToggleFavorite(state, payload){
         state.item.isFavorite = payload
     },
+
+    mutateFavoriteVideos(state,payload){
+        state.favoriteItems=payload.items||[]
+    },
+
 }
 
 export const getters={
@@ -126,5 +138,9 @@ export const getters={
     },
     isLoggedIn(state){
         return !!state.token
-    }
+    },
+    
+    getFavoriteVideos(state){
+        return state.favoriteItems
+    },
 }
