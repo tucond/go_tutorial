@@ -1,18 +1,19 @@
 package api
 
 import (
+	"youtube-manager-go/middlewares"
+	"youtube-manager-go/models"
+
 	"firebase.google.com/go/auth"
 	"github.com/labstack/echo"
 	"github.com/sirupsen/logrus"
 	"github.com/valyala/fasthttp"
 	"google.golang.org/api/youtube/v3"
-	"youtube-manager-go/middlewares"
-	"youtube-manager-go/models"
 )
 
 func FetchFavoriteVideos() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		dbs := c.Get("abs").(*middlewares.DatabaseClient)
+		dbs := c.Get("dbs").(*middlewares.DatabaseClient)
 		token := c.Get("auth").(*auth.Token)
 		user := models.User{}
 		dbs.DB.Table("users").Where(models.User{UID: token.UID}).First(&user)
