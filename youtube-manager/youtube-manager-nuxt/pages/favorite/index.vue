@@ -1,6 +1,6 @@
 <template>
     <section class="section">
-        <dev class="container">
+        <div class="container">
             <div class="block">
                 <div class="block" vfor="item in items">
                     <AppVideo
@@ -9,7 +9,7 @@
                     />
                 </div>
             </div>
-        </dev>
+        </div>
     </section>
 </template>
 
